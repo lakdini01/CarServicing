@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CarServicingManagement.Models.TypesOfService>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddServiceType")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        
+        <th>Options</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "EditServiceType", new { id=item.ServiceTypeId }) |
+            @Html.ActionLink("Details", "DetailsServiceType", new { id=item.ServiceTypeId }) |
+            @Html.ActionLink("Delete", "DeleteServiceType", new { id=item.ServiceTypeId })
+        </td>
+    </tr>
+}
+
+</table>

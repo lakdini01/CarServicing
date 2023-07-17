@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CarServicingManagement.Models.DeliveryBoy>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddDeliveryBoy")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Experience)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceCenter.ServiceCenterName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Experience)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceCenter.ServiceCenterName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditDeliveryBoy", new { id=item.DeliveryBoyId }) |
+            @Html.ActionLink("Details", "DetailsDeliveryBoy", new { id=item.DeliveryBoyId }) |
+            @Html.ActionLink("Delete", "DeleteDeliveryBoy", new { id=item.DeliveryBoyId })
+        </td>
+    </tr>
+}
+
+</table>

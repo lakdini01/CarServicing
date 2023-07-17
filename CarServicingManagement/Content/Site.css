@@ -1,0 +1,140 @@
+﻿html {
+    scroll-behavior: smooth;
+}
+.navbar {
+   
+
+    
+    margin-bottom: 0 !important;
+    border: 0 !important;
+   
+}
+
+section{
+    height:100vh;
+    width:100%;
+}
+ 
+/* Set padding to keep content from hitting the edges */
+/*.body {
+    padding-left: 15px;
+    padding-right: 15px;
+}*/
+
+ 
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*  .navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #777;
+    border-color: #fff
+}*/
+
+.form-container {
+   background-color: white;
+   justify-content:center;
+   align-content:center;
+   margin:auto;
+   align-items:center;
+   border-radius: 10px;
+   box-shadow: 0 0 10px #999;
+   color: #000;
+   font-weight:600;
+   padding:50px;
+}
+
+  .form-group {
+    margin-bottom: 35px;
+}
+#login {
+    
+}
+.container-login {
+    background-image: url("Images/natural-history-museum-g499263830_1920.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    /*padding-top:20px;*/
+    /*padding-top:3%;*/
+}
+
+.form-control-register {
+    padding:5px 40px;
+}
+
+ 
+/*------------Sign Up page-----------*/
+.container-signup {
+    background-image: url("Images/car1.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    /*padding-top: 7%;*/
+}
+/*=====================================Index Page==================================*/
+/*-----------------Nav bar---------*/
+nav {
+    background-image:url("Images/car1.jpg");
+    background-size: cover;
+    
+}
+
+/*  #nav-a {
+    color: #fff;
+    transition: .4s;
+    font-weight: 600;
+}
+
+#nav-a:hover {
+    color: #000;
+}*/
+
+
+/* custom CSS styles */
+.jumbotron {
+    background-image: url("/Content/Images/car1.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+    border-radius: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+}
+
+    .jumbotron h1 {
+        
+    }
+
+#login-signup a {
+    color: black;
+    font-weight: 700;
+    transition: .5s;
+}
+
+    #login-signup a:hover {
+        color: #fff;
+        border: 3px solid #fff;
+        background-color: blue;
+        padding: 3px 14px;
+    }s
+/*------Pages---------*/
+#front-second, #front-third {
+    height: 100vh;
+    width: 100%;
+}
+
+  #front-third {
+   background-image: url("/Content/Images/white.jpg");
+   background-size: cover;
+}
+.container{
+    width:130%;
+    
+}

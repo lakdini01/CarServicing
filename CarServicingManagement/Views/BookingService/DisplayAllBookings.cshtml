@@ -1,0 +1,102 @@
+﻿@model IEnumerable<CarServicingManagement.Models.BookingService>
+
+@{
+    ViewBag.Title = "DisplayAllBookings";
+}
+<style>
+    body {
+        background-image: url("/Content/Images/color_splash.jpg");
+        background-size: cover;
+    }
+</style>
+<br />
+<br />
+<center><h2>All Bookings</h2></center>
+
+<br />
+<br />
+<a style="float:right;margin-right:20px;" class="btn btn-info" href="@Url.Action("Display","ServiceStation")">Back To List</a><br /><br />
+<table class="table table-striped table-light">
+    <tr>
+        <th>
+            User Id
+        </th>
+        <th>
+            Vehicle No
+        </th>
+        <th>
+            Center Id
+        </th>
+        <th>
+            Service Start Date
+        </th>
+        <th>
+            Service End Date
+        </th>
+
+        <th>
+            Booked Date
+        </th>
+        <th>
+            Total Cost
+        </th>
+        <th>
+            Delivery BoyID
+        </th>
+        <th>
+            Status
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceCenterId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceEndDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BookedDate)
+            </td>
+
+            <td>
+                <span style="color:red;">LKR </span>@Html.DisplayFor(modelItem => item.TotalCost)
+            </td>
+
+            @if (item.Status != null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryBoyId)
+                </td>
+                <td>Approved</td>
+            }
+            else
+            {
+
+                <td>
+                    Pending...
+                </td>
+                <td>
+
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("EditBooking", "BookingService", new { id = item.BookingId })">Approve</a>
+
+
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteBooking", "BookingService", new { id = item.BookingId })">Reject</a>
+                </td>
+            }
+        </tr>
+    }
+
+</table>

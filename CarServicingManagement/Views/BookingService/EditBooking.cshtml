@@ -1,0 +1,56 @@
+﻿@model CarServicingManagement.Models.BookingService
+
+@{
+    ViewBag.Title = "EditBooking";
+}
+<style>
+    body{
+        background-image:url("/Content/Images/nissan-240z-g09b988f8c_1920.jpg");
+        background-size:cover;
+    }
+</style>
+<br />
+<br />
+<center><h2>Add A Delivery Boy</h2></center>
+<br />
+<br />
+<style>body{background-color:aquamarine;}</style>
+@using (Html.BeginForm("EditBooking", "BookingService", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <center>
+        <div class="form-horizontal" style="background-color:antiquewhite;border-radius:15px;height:50vh;width:50%;">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.BookingId)
+
+
+
+            <select name="deliveryBoyId" id="deliveryBoyId" style="padding:10px 80px">
+                @foreach (var i in (List<CarServicingManagement.Models.ServiceCenter>)Session["deliveryBoy"])
+                {
+                    foreach (var d in i.DeliveryBoys)
+                    {
+                        if (d.ServiceCenterId == Model.ServiceCenterId)
+                        {
+                            <option value=@d.DeliveryBoyId>@d.Name</option>
+                        }
+                    }
+                }
+            </select>
+
+            <br /><br /><br /><br />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a class="btn btn-warning" href="@Url.Action("Display", "ServiceStation")">Back To List</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </center>
+}

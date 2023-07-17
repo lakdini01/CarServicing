@@ -1,0 +1,50 @@
+﻿@model CarServicingManagement.Models.ServiceCenter
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServiceCenter</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceCenterName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceCenterName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxNumberOfServices)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxNumberOfServices)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ServiceCenterId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,126 @@
+﻿@model IEnumerable<CarServicingManagement.Models.ServiceCenter>
+
+@{
+    ViewBag.Title = "AdminDisplay";
+}
+
+<h2>AdminDisplay</h2>
+
+<p>
+    @Html.ActionLink("Add A Service Station", "AddServiceStation", new {@class="btn btn-primary"})
+</p>
+@if (Model.Count() > 0)
+{
+<table class="table table-striped table-light" style="font-size:14px;">
+    <tr>
+        <th>
+            Center Name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+            Availability
+        </th>
+        <th>Service Stations</th>
+        <th>Delivery Boys</th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceCenterName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxNumberOfServices)
+        </td>
+        <td>
+           
+            <table class="table" table-dark>
+                <tr><td colspan="3"><a href="@Url.Action("AddTypeOfService", "TypesOfService", new {id=item.ServiceCenterId})" class="btn btn-primary">Add A Type Of Service</a></td></tr>
+                @if (item.TypesOfServices.Count() > 0)
+                {
+                    foreach (var stations in item.TypesOfServices)
+                    {
+                    <tr>
+                        <th>Type Of Service</th>
+                        <th>Cost</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => stations.ServiceTypeName)</td>
+                        <td>@Html.DisplayFor(modelItem => stations.Cost)</td>
+                        <td>
+                            <a href="@Url.Action("EditTypeOfService", "TypesOfService", new {id = stations.ServiceTypeId})" class="btn btn-warning">Edit</a>
+                            <a href="@Url.Action("Details", "TypesOfService",new {id = stations.ServiceTypeId})" class="btn btn-info">Details</a>
+                            <a href="@Url.Action("DeleteTypeOfService", "TypesOfService", new {id = stations.ServiceTypeId})" class="btn btn-danger">Delete</a>
+                            @*@Html.ActionLink("Edit", "Edit", new { id = stations.ServiceTypeId, @class = "btn btn-warning" }) |
+                            @Html.ActionLink("Details", "Details", new { id = stations.ServiceTypeId, @class = "btn btn-info" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = stations.ServiceTypeId, @class = "btn btn-danger" })*@
+                        </td>
+
+                    </tr>
+                    }
+                    }
+                    else { <tr><td>No records were found !</td></tr>}
+                </table>
+                
+        </td>
+        <td>
+            
+            <table>
+                <tr><td colspan="3"><a class="btn btn-primary" href="@Url.Action("AddDeliveryBoy","DeliveryBoys",new {id=item.ServiceCenterId})">Add A Delivery Boy</a></td></tr>
+                @if (item.DeliveryBoys.Count() > 0)
+                {
+                    foreach (var boys in item.DeliveryBoys)
+                    {
+                    <tr>
+                        <th>Name</th>
+                        <th>Experience</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => boys.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => boys.Experience)</td>
+                        <td>
+                            <a href="@Url.Action("EditDeliveryBoy", "DeliveryBoys", new {id = boys.DeliveryBoyId})" class="btn btn-warning">Edit</a>
+                            <a href="@Url.Action("Details", "DeliveryBoys",new {id = boys.DeliveryBoyId})" class="btn btn-info">Details</a>
+                            <a href="@Url.Action("DeleteDeliveryBoy", "DeliveryBoys", new {id = boys.DeliveryBoyId})" class="btn btn-danger">Delete</a>
+                            @*@Html.ActionLink("Edit", "Edit", new { id = boys.DeliveryBoyId }) |
+                            @Html.ActionLink("Details", "Details", new { id = boys.DeliveryBoyId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = boys.DeliveryBoyId })*@
+                        </td>
+                    </tr>
+                    }
+                    }
+                    else { <tr><td>No records were found !</td></tr>}
+                </table>
+            
+            </td>
+        <td>
+            <a href="@Url.Action("EditServiceStation", "User", new {id = item.ServiceCenterId})" class="btn btn-warning">Edit</a>
+            <a href="@Url.Action("Details", "User", new {id = item.ServiceCenterId})" class="btn btn-info">Details</a>
+            <a href="@Url.Action("DeleteServiceStation", "User", new {id = item.ServiceCenterId})" class="btn btn-danger">Delete</a>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.ServiceCenterId, @class = "btn btn-warning" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ServiceCenterId, @class = "btn btn-info" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ServiceCenterId, @class = "btn btn-danger" })*@
+        </td>
+    </tr>
+}
+
+</table>  }
+            else
+            {
+                <center><h2>No records were found !</h2></center>
+            }

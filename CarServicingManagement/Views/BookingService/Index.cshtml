@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CarServicingManagement.Models.BookingService>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    body {
+        background-image: url("/Content/Images/pencil.jpg");
+        background-size: cover;
+    }
+</style>
+<br /><br />
+<center><h2>Booking List</h2></center>
+<br /><br /><a style="float:right;margin-right:20px;" href="@Url.Action("Display","ServiceStation")" class="btn btn-warning">Back To List</a>
+<br /><Br>
+@if (Model.Count()> 0) {
+<table class="table table-striped table-danger">
+    <tr>
+       @* <th>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+       <th></th>
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.TotalCost)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceEndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookedDate)
+        </td>
+        @if (item.Status == null)
+        {
+        <td>
+            Pending...
+        </td>
+        }
+        else
+        {
+        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+        <td><a class="btn btn-primary btn-sm" href="@Url.Action("DetailsBooking", "BookingService", new { id = item.BookingId })">Print Request</a></td>
+        }
+
+    </tr>
+}
+
+</table>
+} else {
+    <center><h2>No records found !</h2></center>
+}

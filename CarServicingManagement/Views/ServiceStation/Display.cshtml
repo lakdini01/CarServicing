@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CarServicingManagement.Models.ServiceCenter>
+
+@{
+    ViewBag.Title = "Display";
+}
+
+<style>
+    body{
+        background-image:url("/Content/Images/pencil.jpg");
+        background-size:cover;
+    }
+</style>
+<script src="https://kit.fontawesome.com/1786b54536.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@{if (TempData["successMessage"] != null)
+    {
+        <script type="text/javascript">
+                swal({
+                    title: "@TempData["successMessage"]", text: "Good Job!", icon: "success", button: "Ok",
+                });
+        </script>
+    }
+
+}
+<br />
+<br />
+<center><h2>Welcome ! @Session["userName"]</h2></center>
+<br />
+@if (Session["admin"] != null@*TempData["roleid"].Equals(2)*@)
+{
+<center><a href="@Url.Action("Index","ServiceStation")" class="btn btn-warning">Admin View</a></center><br />
+<center><a href="@Url.Action("DisplayAllBookings","BookingService")" class="btn btn-danger">View User Requests</a></center>
+}
+<br />
+<a style="float:left;margin-left:10px;" href="@Url.Action("Index", "User")" class="btn btn-secondary">Log out</a>
+<a style="float:right;margin-right:20px;" href="@Url.Action("Index", "BookingService", new {userId = Session["userId"]})" class="btn btn-info"><i class="fa-solid fa-cart-shopping"></i>Checked in</a>
+<br />
+<br />
+
+
+<table class="table table-m table-striped table-light">
+    <tr>
+        <th>
+            Service Stations
+        </th>
+        <th>Details</th>
+        <th>Availablity</th>
+        <th>Book</th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceCenterName)
+            </td>
+            <td>
+                <table class="table table-dark">
+                    <tr>
+                        <td>Rating</td>
+
+                        <td>
+                            @for (int i = 0; i < item.Rating; i++)
+                            {<i class="fa-solid fa-star" style="color:darkgoldenrod;"></i>}
+                        </td>
+                    </tr>
+                    <tr><td colspan="2" class="table table-light"></td></tr>
+                    @if (item.TypesOfServices.Count() > 0)
+                    {
+                        <tr>
+                            <th>Service Type</th>
+                            <th>Price</th>
+                        </tr>
+                        foreach (var type in item.TypesOfServices)
+                        {
+
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => type.ServiceTypeName)</td>
+                                <td>LKR @Html.DisplayFor(modelItem => type.Cost)</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </td>
+            @{string availablity; if (item.Rating > 0) { availablity = "Available"; } else { availablity = "Not Available"; } }
+            <td>@availablity</td>
+            <td>
+                <a href="@Url.Action("AddBooking", "BookingService", new {id = item.ServiceCenterId,userId =Session["userId"] })" class="btn btn-primary">Book Now</a>
+            </td>
+
+        </tr>
+
+    }
+
+</table>

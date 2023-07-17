@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bf0fe66b83074432bb102e17f2eaa15c" Name="Diagram1">
+        <EntityTypeShape EntityType="CarServicingManagementModel.DeliveryBoy" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="CarServicingManagementModel.Role" Width="1.5" PointX="0.75" PointY="9.625" />
+        <EntityTypeShape EntityType="CarServicingManagementModel.ServiceCenter" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="CarServicingManagementModel.TypesOfService" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="CarServicingManagementModel.User" Width="1.5" PointX="3" PointY="8.75" />
+        <AssociationConnector Association="CarServicingManagementModel.FK__DeliveryB__Servi__52593CB8" />
+        <AssociationConnector Association="CarServicingManagementModel.FK__Users__RoleId__4AB81AF0" />
+        <AssociationConnector Association="CarServicingManagementModel.FK__TypesOfSe__Cente__4F7CD00D" />
+        <EntityTypeShape EntityType="CarServicingManagementModel.BookingService" Width="1.5" PointX="5.25" PointY="5.25" />
+        <AssociationConnector Association="CarServicingManagementModel.FK__BookingSe__Deliv__5DCAEF64" />
+        <AssociationConnector Association="CarServicingManagementModel.FK__BookingSe__Servi__5EBF139D" />
+        <AssociationConnector Association="CarServicingManagementModel.FK__BookingSe__UserI__5CD6CB2B" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

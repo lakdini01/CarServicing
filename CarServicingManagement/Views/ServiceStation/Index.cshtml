@@ -1,0 +1,169 @@
+﻿@model IEnumerable<CarServicingManagement.Models.ServiceCenter>
+
+@{
+    ViewBag.Title = "AdminDisplay";
+}
+<style>
+    body {
+        background-image: url("/Content/Images/background.png");
+        background-size: cover;
+    }
+</style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@{if (TempData["successMessage"] != null)
+    {
+        <script type="text/javascript">
+                swal({
+                    title: "@TempData["successMessage"]", text: "Good Job!", icon: "success", button: "Ok",
+                });
+        </script>
+        }
+    }
+    <br />
+    <br />
+    <center><h2>Admin Display</h2></center>
+    <br />
+    <a style="float:left;margin-left:10px;" href="@Url.Action("Index", "User")" class="btn btn-secondary">Log out</a>
+    <a style="float:right;margin-right:20px;" class="btn btn-info" href="@Url.Action("Display","ServiceStation")">Back To List</a>
+    @{
+        if (TempData["successMessage"] != null)
+        {
+            <script type="text/javascript">
+                swal({
+                    title: "@TempData["successMessage"]", text: "Good Job!", icon: "success", button: "Ok",
+                });
+            </script>
+        }
+
+    }
+    <p>
+        <a style="float:left;margin-left:20px;" class="btn btn-info" href="@Url.Action("AddServiceCenter","ServiceStation")">Add A Service Station</a>
+
+    </p>
+    <br />
+    <br />
+    <br />
+    @if (Model.Count() > 0)
+    {<section style="margin:10px;">
+            <table class="table table-striped table-light" style="font-size:14px;margin-right:20px;">
+                <tr>
+                    <th>
+                        Center Name
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rating)
+                    </th>
+                    <th>
+                        Availability
+                    </th>
+                    <th>Service Stations</th>
+                    <th>Delivery Boys</th>
+                    <th>Actions</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceCenterName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaxNumberOfServices)
+                        </td>
+                        <td>
+
+                            <table class="table" table-dark>
+                                <tr><td colspan="3"><a href="@Url.Action("AddServiceType", "TypesOfService", new {id=item.ServiceCenterId})" class="btn btn-primary">Add A Type Of Service</a></td></tr>
+                                @if (item.TypesOfServices.Count() > 0)
+                                {
+                                    <tr>
+                                        <th>Type Of Service</th>
+                                        <th>Cost</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    foreach (var stations in item.TypesOfServices)
+                                    {
+
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => stations.ServiceTypeName)</td>
+                                            <td>@Html.DisplayFor(modelItem => stations.Cost)</td>
+                                            <td>
+                                                <a href="@Url.Action("EditServiceType", "TypesOfService", new {id = stations.ServiceTypeId})" class="btn btn-sm btn-warning">Edit</a>
+                                                <a href="@Url.Action("DetailsServiceType", "TypesOfService",new {id = stations.ServiceTypeId})" class="btn btn-sm btn-info">Details</a>
+                                                <a href="@Url.Action("DeleteServiceType", "TypesOfService", new {id = stations.ServiceTypeId})" class="btn btn-sm btn-danger">Delete</a>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = stations.ServiceTypeId, @class = "btn btn-warning" }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = stations.ServiceTypeId, @class = "btn btn-info" }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = stations.ServiceTypeId, @class = "btn btn-danger" })*@
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td>No records were found !</td></tr>
+                                }
+                            </table>
+
+                        </td>
+                        <td>
+
+                            <table>
+                                <tr><td colspan="3"><a class="btn btn-primary" href="@Url.Action("AddDeliveryBoy","DeliveryBoys",new {id=item.ServiceCenterId})">Add A Delivery Boy</a></td></tr>
+                                @if (item.DeliveryBoys.Count() > 0)
+                                {
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Experience</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    foreach (var boys in item.DeliveryBoys)
+                                    {
+
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => boys.Name)</td>
+                                            <td>@Html.DisplayFor(modelItem => boys.Experience)</td>
+                                            <td>
+                                                <a href="@Url.Action("EditDeliveryBoy", "DeliveryBoys", new {id = boys.DeliveryBoyId})" class="btn btn-sm btn-warning">Edit</a>
+                                                <a href="@Url.Action("DetailsDeliveryBoy", "DeliveryBoys",new {id = boys.DeliveryBoyId})" class="btn btn-sm btn-info">Details</a>
+                                                <a href="@Url.Action("DeleteDeliveryBoy", "DeliveryBoys", new {id = boys.DeliveryBoyId})" class="btn btn-sm btn-danger">Delete</a>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = boys.DeliveryBoyId }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = boys.DeliveryBoyId }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = boys.DeliveryBoyId })*@
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td>No records were found !</td></tr>
+                                }
+                            </table>
+
+                        </td>
+                        <td>
+                            <a href="@Url.Action("EditServiceCenter", "ServiceStation", new {id = item.ServiceCenterId})" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="@Url.Action("DetailsServiceCenter", "ServiceStation", new {id = item.ServiceCenterId})" class="btn btn-sm btn-info">Details</a>
+                            <a href="@Url.Action("DeleteServiceCenter", "ServiceStation", new {id = item.ServiceCenterId})" class="btn btn-sm btn-danger">Delete</a>
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.ServiceCenterId, @class = "btn btn-warning" }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ServiceCenterId, @class = "btn btn-info" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ServiceCenterId, @class = "btn btn-danger" })*@
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </section>}
+    else
+    {
+        <center><h2>No records were found !</h2></center>
+    }

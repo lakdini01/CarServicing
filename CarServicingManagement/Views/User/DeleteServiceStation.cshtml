@@ -1,0 +1,56 @@
+﻿@model CarServicingManagement.Models.ServiceCenter
+
+@{
+    ViewBag.Title = "DeleteServiceStation";
+}
+
+<h2>DeleteServiceStation</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ServiceCenter</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceCenterName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceCenterName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxNumberOfServices)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxNumberOfServices)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "AdminDisplay")
+        </div>
+    }
+</div>

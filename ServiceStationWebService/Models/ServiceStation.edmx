@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarServicingManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookingService">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="DeliveryBoyId" Type="int" />
+          <Property Name="TotalCost" Type="float" />
+          <Property Name="VehicleNo" Type="varchar" MaxLength="10" />
+          <Property Name="ServiceStartDate" Type="datetime" />
+          <Property Name="ServiceEndDate" Type="datetime" />
+          <Property Name="BookedDate" Type="datetime" />
+          <Property Name="ServiceCenterId" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DeliveryBoys">
+          <Key>
+            <PropertyRef Name="DeliveryBoyId" />
+          </Key>
+          <Property Name="DeliveryBoyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="Experience" Type="varchar" MaxLength="10" />
+          <Property Name="ServiceCenterId" Type="int" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Mobile" Type="int" />
+          <Property Name="Address" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ServiceCenters">
+          <Key>
+            <PropertyRef Name="ServiceCenterId" />
+          </Key>
+          <Property Name="ServiceCenterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceCenterName" Type="varchar" MaxLength="50" />
+          <Property Name="Location" Type="varchar" MaxLength="40" />
+          <Property Name="Rating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MaxNumberOfServices" Type="int" />
+        </EntityType>
+        <EntityType Name="TypesOfServices">
+          <Key>
+            <PropertyRef Name="ServiceTypeId" />
+          </Key>
+          <Property Name="ServiceTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceTypeName" Type="varchar" MaxLength="30" />
+          <Property Name="Cost" Type="float" />
+          <Property Name="CenterId" Type="int" />
+        </EntityType>
+        <Association Name="FK__BookingSe__Deliv__5DCAEF64">
+          <End Role="DeliveryBoys" Type="Self.DeliveryBoys" Multiplicity="0..1" />
+          <End Role="BookingService" Type="Self.BookingService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryBoys">
+              <PropertyRef Name="DeliveryBoyId" />
+            </Principal>
+            <Dependent Role="BookingService">
+              <PropertyRef Name="DeliveryBoyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingSe__Servi__5EBF139D">
+          <End Role="ServiceCenters" Type="Self.ServiceCenters" Multiplicity="0..1" />
+          <End Role="BookingService" Type="Self.BookingService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCenters">
+              <PropertyRef Name="ServiceCenterId" />
+            </Principal>
+            <Dependent Role="BookingService">
+              <PropertyRef Name="ServiceCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DeliveryB__Servi__52593CB8">
+          <End Role="ServiceCenters" Type="Self.ServiceCenters" Multiplicity="0..1" />
+          <End Role="DeliveryBoys" Type="Self.DeliveryBoys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCenters">
+              <PropertyRef Name="ServiceCenterId" />
+            </Principal>
+            <Dependent Role="DeliveryBoys">
+              <PropertyRef Name="ServiceCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TypesOfSe__Cente__4F7CD00D">
+          <End Role="ServiceCenters" Type="Self.ServiceCenters" Multiplicity="0..1" />
+          <End Role="TypesOfServices" Type="Self.TypesOfServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCenters">
+              <PropertyRef Name="ServiceCenterId" />
+            </Principal>
+            <Dependent Role="TypesOfServices">
+              <PropertyRef Name="CenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarServicingManagementModelStoreContainer">
+          <EntitySet Name="BookingService" EntityType="Self.BookingService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeliveryBoys" EntityType="Self.DeliveryBoys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceCenters" EntityType="Self.ServiceCenters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypesOfServices" EntityType="Self.TypesOfServices" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BookingSe__Deliv__5DCAEF64" Association="Self.FK__BookingSe__Deliv__5DCAEF64">
+            <End Role="DeliveryBoys" EntitySet="DeliveryBoys" />
+            <End Role="BookingService" EntitySet="BookingService" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingSe__Servi__5EBF139D" Association="Self.FK__BookingSe__Servi__5EBF139D">
+            <End Role="ServiceCenters" EntitySet="ServiceCenters" />
+            <End Role="BookingService" EntitySet="BookingService" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DeliveryB__Servi__52593CB8" Association="Self.FK__DeliveryB__Servi__52593CB8">
+            <End Role="ServiceCenters" EntitySet="ServiceCenters" />
+            <End Role="DeliveryBoys" EntitySet="DeliveryBoys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TypesOfSe__Cente__4F7CD00D" Association="Self.FK__TypesOfSe__Cente__4F7CD00D">
+            <End Role="ServiceCenters" EntitySet="ServiceCenters" />
+            <End Role="TypesOfServices" EntitySet="TypesOfServices" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarServicingManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CarServicingManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookingServices" EntityType="CarServicingManagementModel.BookingService" />
+          <EntitySet Name="DeliveryBoys" EntityType="CarServicingManagementModel.DeliveryBoy" />
+          <EntitySet Name="ServiceCenters" EntityType="CarServicingManagementModel.ServiceCenter" />
+          <EntitySet Name="TypesOfServices" EntityType="CarServicingManagementModel.TypesOfService" />
+          <AssociationSet Name="FK__BookingSe__Deliv__5DCAEF64" Association="CarServicingManagementModel.FK__BookingSe__Deliv__5DCAEF64">
+            <End Role="DeliveryBoy" EntitySet="DeliveryBoys" />
+            <End Role="BookingService" EntitySet="BookingServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingSe__Servi__5EBF139D" Association="CarServicingManagementModel.FK__BookingSe__Servi__5EBF139D">
+            <End Role="ServiceCenter" EntitySet="ServiceCenters" />
+            <End Role="BookingService" EntitySet="BookingServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DeliveryB__Servi__52593CB8" Association="CarServicingManagementModel.FK__DeliveryB__Servi__52593CB8">
+            <End Role="ServiceCenter" EntitySet="ServiceCenters" />
+            <End Role="DeliveryBoy" EntitySet="DeliveryBoys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TypesOfSe__Cente__4F7CD00D" Association="CarServicingManagementModel.FK__TypesOfSe__Cente__4F7CD00D">
+            <End Role="ServiceCenter" EntitySet="ServiceCenters" />
+            <End Role="TypesOfService" EntitySet="TypesOfServices" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BookingService">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="DeliveryBoyId" Type="Int32" />
+          <Property Name="TotalCost" Type="Double" />
+          <Property Name="VehicleNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ServiceEndDate" Type="DateTime" Precision="3" />
+          <Property Name="BookedDate" Type="DateTime" Precision="3" />
+          <Property Name="ServiceCenterId" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DeliveryBoy" Relationship="CarServicingManagementModel.FK__BookingSe__Deliv__5DCAEF64" FromRole="BookingService" ToRole="DeliveryBoy" />
+          <NavigationProperty Name="ServiceCenter" Relationship="CarServicingManagementModel.FK__BookingSe__Servi__5EBF139D" FromRole="BookingService" ToRole="ServiceCenter" />
+        </EntityType>
+        <EntityType Name="DeliveryBoy">
+          <Key>
+            <PropertyRef Name="DeliveryBoyId" />
+          </Key>
+          <Property Name="DeliveryBoyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Experience" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceCenterId" Type="Int32" />
+          <NavigationProperty Name="BookingServices" Relationship="CarServicingManagementModel.FK__BookingSe__Deliv__5DCAEF64" FromRole="DeliveryBoy" ToRole="BookingService" />
+          <NavigationProperty Name="ServiceCenter" Relationship="CarServicingManagementModel.FK__DeliveryB__Servi__52593CB8" FromRole="DeliveryBoy" ToRole="ServiceCenter" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Mobile" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ServiceCenter">
+          <Key>
+            <PropertyRef Name="ServiceCenterId" />
+          </Key>
+          <Property Name="ServiceCenterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceCenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MaxNumberOfServices" Type="Int32" />
+          <NavigationProperty Name="BookingServices" Relationship="CarServicingManagementModel.FK__BookingSe__Servi__5EBF139D" FromRole="ServiceCenter" ToRole="BookingService" />
+          <NavigationProperty Name="DeliveryBoys" Relationship="CarServicingManagementModel.FK__DeliveryB__Servi__52593CB8" FromRole="ServiceCenter" ToRole="DeliveryBoy" />
+          <NavigationProperty Name="TypesOfServices" Relationship="CarServicingManagementModel.FK__TypesOfSe__Cente__4F7CD00D" FromRole="ServiceCenter" ToRole="TypesOfService" />
+        </EntityType>
+        <EntityType Name="TypesOfService">
+          <Key>
+            <PropertyRef Name="ServiceTypeId" />
+          </Key>
+          <Property Name="ServiceTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceTypeName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Double" />
+          <Property Name="CenterId" Type="Int32" />
+          <NavigationProperty Name="ServiceCenter" Relationship="CarServicingManagementModel.FK__TypesOfSe__Cente__4F7CD00D" FromRole="TypesOfService" ToRole="ServiceCenter" />
+        </EntityType>
+        <Association Name="FK__BookingSe__Deliv__5DCAEF64">
+          <End Type="CarServicingManagementModel.DeliveryBoy" Role="DeliveryBoy" Multiplicity="0..1" />
+          <End Type="CarServicingManagementModel.BookingService" Role="BookingService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryBoy">
+              <PropertyRef Name="DeliveryBoyId" />
+            </Principal>
+            <Dependent Role="BookingService">
+              <PropertyRef Name="DeliveryBoyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingSe__Servi__5EBF139D">
+          <End Type="CarServicingManagementModel.ServiceCenter" Role="ServiceCenter" Multiplicity="0..1" />
+          <End Type="CarServicingManagementModel.BookingService" Role="BookingService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCenter">
+              <PropertyRef Name="ServiceCenterId" />
+            </Principal>
+            <Dependent Role="BookingService">
+              <PropertyRef Name="ServiceCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DeliveryB__Servi__52593CB8">
+          <End Type="CarServicingManagementModel.ServiceCenter" Role="ServiceCenter" Multiplicity="0..1" />
+          <End Type="CarServicingManagementModel.DeliveryBoy" Role="DeliveryBoy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCenter">
+              <PropertyRef Name="ServiceCenterId" />
+            </Principal>
+            <Dependent Role="DeliveryBoy">
+              <PropertyRef Name="ServiceCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TypesOfSe__Cente__4F7CD00D">
+          <End Type="CarServicingManagementModel.ServiceCenter" Role="ServiceCenter" Multiplicity="0..1" />
+          <End Type="CarServicingManagementModel.TypesOfService" Role="TypesOfService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCenter">
+              <PropertyRef Name="ServiceCenterId" />
+            </Principal>
+            <Dependent Role="TypesOfService">
+              <PropertyRef Name="CenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarServicingManagementModelStoreContainer" CdmEntityContainer="CarServicingManagementEntities">
+          <EntitySetMapping Name="BookingServices">
+            <EntityTypeMapping TypeName="CarServicingManagementModel.BookingService">
+              <MappingFragment StoreEntitySet="BookingService">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ServiceCenterId" ColumnName="ServiceCenterId" />
+                <ScalarProperty Name="BookedDate" ColumnName="BookedDate" />
+                <ScalarProperty Name="ServiceEndDate" ColumnName="ServiceEndDate" />
+                <ScalarProperty Name="ServiceStartDate" ColumnName="ServiceStartDate" />
+                <ScalarProperty Name="VehicleNo" ColumnName="VehicleNo" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="DeliveryBoyId" ColumnName="DeliveryBoyId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryBoys">
+            <EntityTypeMapping TypeName="CarServicingManagementModel.DeliveryBoy">
+              <MappingFragment StoreEntitySet="DeliveryBoys">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="ServiceCenterId" ColumnName="ServiceCenterId" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DeliveryBoyId" ColumnName="DeliveryBoyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceCenters">
+            <EntityTypeMapping TypeName="CarServicingManagementModel.ServiceCenter">
+              <MappingFragment StoreEntitySet="ServiceCenters">
+                <ScalarProperty Name="MaxNumberOfServices" ColumnName="MaxNumberOfServices" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ServiceCenterName" ColumnName="ServiceCenterName" />
+                <ScalarProperty Name="ServiceCenterId" ColumnName="ServiceCenterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypesOfServices">
+            <EntityTypeMapping TypeName="CarServicingManagementModel.TypesOfService">
+              <MappingFragment StoreEntitySet="TypesOfServices">
+                <ScalarProperty Name="CenterId" ColumnName="CenterId" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="ServiceTypeName" ColumnName="ServiceTypeName" />
+                <ScalarProperty Name="ServiceTypeId" ColumnName="ServiceTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
